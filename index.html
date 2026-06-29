@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="refresh" content="60">
+<title>Insider Monitor — Oslo Børs</title>
+<style>
+  :root {
+    --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#e6edf3;
+    --muted:#8b949e; --accent:#58a6ff; --hot:#f85149; --strong:#3fb950;
+    --mid:#d29922; --weak:#6e7681;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }
+  .wrap { max-width:1100px; margin:0 auto; padding:24px 16px 64px; }
+  header { display:flex; align-items:baseline; justify-content:space-between;
+    flex-wrap:wrap; gap:8px; margin-bottom:8px; }
+  h1 { font-size:22px; margin:0; }
+  h1 .dot { color:var(--strong); }
+  .updated { color:var(--muted); font-size:13px; }
+  h2 { font-size:15px; text-transform:uppercase; letter-spacing:.05em;
+    color:var(--muted); margin:32px 0 12px; }
+  .card { background:var(--card); border:1px solid var(--border);
+    border-radius:10px; overflow:hidden; }
+  table { width:100%; border-collapse:collapse; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--border);
+    white-space:nowrap; }
+  th { font-size:12px; text-transform:uppercase; letter-spacing:.04em;
+    color:var(--muted); font-weight:600; }
+  tr:last-child td { border-bottom:none; }
+  tbody tr:hover { background:rgba(110,118,129,.08); }
+  .num { text-align:right; font-variant-numeric:tabular-nums; }
+  .rank { color:var(--muted); width:28px; }
+  .company a { color:var(--text); text-decoration:none; font-weight:600; }
+  .company a:hover { color:var(--accent); text-decoration:underline; }
+  .muted { color:var(--muted); font-weight:400; }
+  .nowrap { white-space:nowrap; }
+  .score { display:inline-block; min-width:34px; text-align:center;
+    padding:2px 7px; border-radius:6px; font-weight:700; font-size:13px; }
+  .s-hot { background:rgba(248,81,73,.15); color:var(--hot); }
+  .s-strong { background:rgba(63,185,80,.15); color:var(--strong); }
+  .s-mid { background:rgba(210,153,34,.15); color:var(--mid); }
+  .s-weak { background:rgba(110,118,129,.15); color:var(--weak); }
+  .badge { font-size:11px; font-weight:700; padding:2px 6px; border-radius:5px; }
+  .badge.buy { background:rgba(63,185,80,.15); color:var(--strong); }
+  .badge.sell { background:rgba(248,81,73,.15); color:var(--hot); }
+  .clusters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px; }
+  .chip { background:var(--card); border:1px solid var(--border);
+    border-radius:20px; padding:6px 12px; font-size:13px; }
+  .scroll { overflow-x:auto; }
+  footer { color:var(--muted); font-size:12px; margin-top:40px; text-align:center; }
+  footer a { color:var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1><span class="dot">●</span> Insider Monitor <span class="muted">— Oslo Børs</span></h1>
+    <div class="updated">Oppdatert 29.06.2026 kl. 19:52 UTC · auto-refresh 60s</div>
+  </header>
+
+  <h2>🏆 Topp signaler (siste 30 dager)</h2>
+  
+  <div class="card scroll">
+    <table>
+      <thead><tr>
+        <th></th><th>Selskap</th><th>Sterkeste insider</th><th>Rolle</th>
+        <th class="num">Verdi</th><th class="num">Endring</th>
+        <th class="num">Score</th><th class="num">Kjøp</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="rank">1</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889596" target="_blank" rel="noopener">Orkla ASA</a></td>
+          <td>—</td>
+          <td>CEO</td>
+          <td class="num">1.3M</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-hot">10.0</span></td>
+          <td class="num muted">5</td>
+        </tr>
+        <tr>
+          <td class="rank">2</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12890367" target="_blank" rel="noopener">Protector Forsikring ASA</a></td>
+          <td>—</td>
+          <td>CFO</td>
+          <td class="num">77.7M</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-strong">7.2</span></td>
+          <td class="num muted">1</td>
+        </tr>
+        <tr>
+          <td class="rank">3</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889232" target="_blank" rel="noopener">Xplora Technologies AS</a></td>
+          <td>Cosimo AS.
+Knut Stålen</td>
+          <td>CEO</td>
+          <td class="num">4.5M</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-mid">6.3</span></td>
+          <td class="num muted">1</td>
+        </tr>
+        <tr>
+          <td class="rank">4</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889129" target="_blank" rel="noopener">ABG</a></td>
+          <td>—</td>
+          <td>CFO</td>
+          <td class="num">2.2M</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-mid">5.8</span></td>
+          <td class="num muted">1</td>
+        </tr>
+        <tr>
+          <td class="rank">5</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12890887" target="_blank" rel="noopener">Ace Digital AS</a></td>
+          <td>Digital AS
+Alexander Hagen</td>
+          <td>CEO</td>
+          <td class="num">129k</td>
+          <td class="num">+59%</td>
+          <td class="num"><span class="score s-mid">5.7</span></td>
+          <td class="num muted">1</td>
+        </tr>
+        <tr>
+          <td class="rank">6</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12892435" target="_blank" rel="noopener">TRMED</a></td>
+          <td>—</td>
+          <td>CFO</td>
+          <td class="num">115k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">4.7</span></td>
+          <td class="num muted">1</td>
+        </tr>
+        <tr>
+          <td class="rank">7</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889138" target="_blank" rel="noopener">Nordic Halibut AS</a></td>
+          <td>Øyvind Gjærevoll Schanke</td>
+          <td>CEO</td>
+          <td class="num">61k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">4.7</span></td>
+          <td class="num muted">1</td>
+        </tr>
+        <tr>
+          <td class="rank">8</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889378" target="_blank" rel="noopener">Desert Control AS</a></td>
+          <td>—</td>
+          <td>CFO</td>
+          <td class="num">58k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">4.4</span></td>
+          <td class="num muted">1</td>
+        </tr>
+        <tr>
+          <td class="rank">9</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12893811" target="_blank" rel="noopener">Magnora Data Center ASA</a></td>
+          <td>Lars Schedin</td>
+          <td>Board</td>
+          <td class="num">188k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">4.1</span></td>
+          <td class="num muted">1</td>
+        </tr>
+        <tr>
+          <td class="rank">10</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12892468" target="_blank" rel="noopener">TOMRA</a></td>
+          <td>—</td>
+          <td>Board</td>
+          <td class="num">158k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">4.0</span></td>
+          <td class="num muted">1</td>
+        </tr>
+        <tr>
+          <td class="rank">11</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12890306" target="_blank" rel="noopener">STOREBRAND ASA</a></td>
+          <td>—</td>
+          <td>Board</td>
+          <td class="num">100k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">3.9</span></td>
+          <td class="num muted">1</td>
+        </tr>
+        <tr>
+          <td class="rank">12</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889730" target="_blank" rel="noopener">Norconsult</a></td>
+          <td>—</td>
+          <td>Other</td>
+          <td class="num">510k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">3.7</span></td>
+          <td class="num muted">1</td>
+        </tr>
+        <tr>
+          <td class="rank">13</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12891818" target="_blank" rel="noopener">Kongsberg Maritime ASA</a></td>
+          <td>—</td>
+          <td>Other</td>
+          <td class="num">337k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">3.6</span></td>
+          <td class="num muted">1</td>
+        </tr>
+        <tr>
+          <td class="rank">14</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12893242" target="_blank" rel="noopener">Vår Energi ASA</a></td>
+          <td>—</td>
+          <td>Other</td>
+          <td class="num">218k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">3.4</span></td>
+          <td class="num muted">1</td>
+        </tr>
+        <tr>
+          <td class="rank">15</td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12892475" target="_blank" rel="noopener">Dellia Group ASA</a></td>
+          <td>—</td>
+          <td>Other</td>
+          <td class="num">300k</td>
+          <td class="num">+0%</td>
+          <td class="num"><span class="score s-weak">3.1</span></td>
+          <td class="num muted">1</td>
+        </tr></tbody>
+    </table>
+  </div>
+
+  <h2>🕐 Siste handler (siste 30 dager)</h2>
+  <div class="card scroll">
+    <table>
+      <thead><tr>
+        <th>Tid</th><th>Type</th><th>Selskap</th><th>Insider</th>
+        <th class="num">Verdi</th><th class="num">Endring</th><th class="num">Score</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="muted nowrap">19 Jun 2026 01:11 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12893811" target="_blank" rel="noopener">Magnora Data Center ASA</a></td>
+          <td>Lars Schedin <span class="muted">(Board)</span></td>
+          <td class="num">188k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">4.1</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">18 Jun 2026 13:38 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12893670" target="_blank" rel="noopener">Sentia ASA</a></td>
+          <td>CFO</td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">0.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">17 Jun 2026 14:45 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12893315" target="_blank" rel="noopener">Selvaag Bolig ASA</a></td>
+          <td>Sverre Molvik <span class="muted">(CEO)</span></td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">0.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">17 Jun 2026 09:24 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12893242" target="_blank" rel="noopener">Vår Energi ASA</a></td>
+          <td>Other</td>
+          <td class="num">218k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">3.4</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">17 Jun 2026 08:30 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12893228" target="_blank" rel="noopener">5th Planet Games A/S</a></td>
+          <td>Mark Stanger <span class="muted">(CEO)</span></td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">0.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">12 Jun 2026 17:41 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12892475" target="_blank" rel="noopener">Dellia Group ASA</a></td>
+          <td>Other</td>
+          <td class="num">300k</td>
+          <td class="num">+0%</td>
+          <td class="num"><span class="score s-weak">3.1</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">12 Jun 2026 16:42 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12892468" target="_blank" rel="noopener">TOMRA</a></td>
+          <td>Board</td>
+          <td class="num">158k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">4.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">12 Jun 2026 16:21 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12892435" target="_blank" rel="noopener">TRMED</a></td>
+          <td>CFO</td>
+          <td class="num">115k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">4.7</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">12 Jun 2026 09:44 CES </td>
+          <td><span class="badge sell">SALG</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12892360" target="_blank" rel="noopener">Sparebanken Norge</a></td>
+          <td>Simen Eilertsen <span class="muted">(Board)</span></td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">0.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">12 Jun 2026 07:00 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12892302" target="_blank" rel="noopener">LINK Mobility</a></td>
+          <td>Morten Løken Edvardsen <span class="muted">(CFO)</span></td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">0.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">11 Jun 2026 13:04 CES </td>
+          <td><span class="badge sell">SALG</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12892142" target="_blank" rel="noopener">Veidekke</a></td>
+          <td>Jørgen Wiese Porsmyr <span class="muted">(CFO)</span></td>
+          <td class="num">1.3M</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-mid">6.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">10 Jun 2026 14:00 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12891818" target="_blank" rel="noopener">Kongsberg Maritime ASA</a></td>
+          <td>Other</td>
+          <td class="num">337k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">3.6</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">07 Jun 2026 19:05 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12890887" target="_blank" rel="noopener">Ace Digital AS</a></td>
+          <td>Digital AS
+Alexander Hagen <span class="muted">(CEO)</span></td>
+          <td class="num">129k</td>
+          <td class="num">+59%</td>
+          <td class="num"><span class="score s-mid">5.7</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">05 Jun 2026 16:30 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12890776" target="_blank" rel="noopener">Arribatec Group ASA</a></td>
+          <td>Ole Jakob Kjølvik <span class="muted">(CEO)</span></td>
+          <td class="num">—</td>
+          <td class="num">+27%</td>
+          <td class="num"><span class="score s-weak">0.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">05 Jun 2026 13:30 CES </td>
+          <td><span class="badge sell">SALG</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12890720" target="_blank" rel="noopener">Goodtech ASA</a></td>
+          <td>Anders Engelsen <span class="muted">(CFO)</span></td>
+          <td class="num">183k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-mid">5.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">04 Jun 2026 21:20 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12890371" target="_blank" rel="noopener">ALNG ASA</a></td>
+          <td>Other</td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">0.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">04 Jun 2026 16:30 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12890297" target="_blank" rel="noopener">AF Gruppen ASA</a></td>
+          <td>Board</td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">0.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">04 Jun 2026 16:57 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12890306" target="_blank" rel="noopener">STOREBRAND ASA</a></td>
+          <td>Board</td>
+          <td class="num">100k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">3.9</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">04 Jun 2026 19:19 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12890367" target="_blank" rel="noopener">Protector Forsikring ASA</a></td>
+          <td>CFO</td>
+          <td class="num">77.7M</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-strong">7.2</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">03 Jun 2026 06:59 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889730" target="_blank" rel="noopener">Norconsult</a></td>
+          <td>Other</td>
+          <td class="num">510k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">3.7</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">02 Jun 2026 16:00 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889596" target="_blank" rel="noopener">Orkla ASA</a></td>
+          <td>CEO</td>
+          <td class="num">1.3M</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-mid">5.9</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">02 Jun 2026 15:50 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889594" target="_blank" rel="noopener">Orkla ASA</a></td>
+          <td>CFO</td>
+          <td class="num">972k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-mid">5.5</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">02 Jun 2026 15:40 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889591" target="_blank" rel="noopener">Orkla ASA</a></td>
+          <td>Board</td>
+          <td class="num">1.1M</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">4.8</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">02 Jun 2026 12:20 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889510" target="_blank" rel="noopener">Orkla ASA</a></td>
+          <td>Other</td>
+          <td class="num">127k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">3.2</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">01 Jun 2026 22:58 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889391" target="_blank" rel="noopener">DOF Group ASA</a></td>
+          <td>Other</td>
+          <td class="num">—</td>
+          <td class="num">+76%</td>
+          <td class="num"><span class="score s-weak">0.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">01 Jun 2026 20:09 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889378" target="_blank" rel="noopener">Desert Control AS</a></td>
+          <td>CFO</td>
+          <td class="num">58k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">4.4</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">01 Jun 2026 15:05 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889232" target="_blank" rel="noopener">Xplora Technologies AS</a></td>
+          <td>Cosimo AS.
+Knut Stålen <span class="muted">(CEO)</span></td>
+          <td class="num">4.5M</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-mid">6.3</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">01 Jun 2026 14:50 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889226" target="_blank" rel="noopener">Capital Tankers Corp.</a></td>
+          <td>CEO</td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">0.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">01 Jun 2026 14:36 CES </td>
+          <td><span class="badge sell">SALG</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889225" target="_blank" rel="noopener">Instabank ASA</a></td>
+          <td>Form.pdf
+Source
+Instabank ASA <span class="muted">(Other)</span></td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">0.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">01 Jun 2026 13:13 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889210" target="_blank" rel="noopener">DNB Bank ASA</a></td>
+          <td>Board</td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">0.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">01 Jun 2026 11:08 CES </td>
+          <td><span class="badge sell">SALG</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889156" target="_blank" rel="noopener">Aktieselskabet Schouw &amp; Co.</a></td>
+          <td>Other</td>
+          <td class="num">—</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">0.0</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">01 Jun 2026 10:45 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889145" target="_blank" rel="noopener">Orkla ASA</a></td>
+          <td>Other</td>
+          <td class="num">98k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">3.1</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">01 Jun 2026 10:39 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889138" target="_blank" rel="noopener">Nordic Halibut AS</a></td>
+          <td>Øyvind Gjærevoll Schanke <span class="muted">(CEO)</span></td>
+          <td class="num">61k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">4.7</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">01 Jun 2026 09:53 CES </td>
+          <td><span class="badge buy">KJØP</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889129" target="_blank" rel="noopener">ABG</a></td>
+          <td>CFO</td>
+          <td class="num">2.2M</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-mid">5.8</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">30 May 2026 18:13 CES </td>
+          <td><span class="badge sell">SALG</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889011" target="_blank" rel="noopener">Lokotech Group AS</a></td>
+          <td>Christian Rustad <span class="muted">(Board)</span></td>
+          <td class="num">975k</td>
+          <td class="num">+5%</td>
+          <td class="num"><span class="score s-weak">4.5</span></td>
+        </tr>
+        <tr>
+          <td class="muted nowrap">30 May 2026 12:02 CES </td>
+          <td><span class="badge sell">SALG</span></td>
+          <td class="company"><a href="https://live.euronext.com/en/node/12889009" target="_blank" rel="noopener">Lokotech Group AS</a></td>
+          <td>Christian Rustad <span class="muted">(Board)</span></td>
+          <td class="num">975k</td>
+          <td class="num">—</td>
+          <td class="num"><span class="score s-weak">4.7</span></td>
+        </tr></tbody>
+    </table>
+  </div>
+
+  <footer>
+    Data fra offentlige meldinger på <a href="https://live.euronext.com" target="_blank" rel="noopener">Euronext / Oslo Børs</a>.
+    Score er en intern modell — ikke investeringsråd.
+  </footer>
+</div>
+</body>
+</html>
