@@ -50,6 +50,23 @@
   .chip { background:var(--card); border:1px solid var(--border);
     border-radius:20px; padding:6px 12px; font-size:13px; }
   .scroll { overflow-x:auto; }
+  /* Utvidbar kjøp-liste */
+  .top-row.clickable { cursor:pointer; }
+  .expand { color:var(--accent); font-weight:700; white-space:nowrap; }
+  .caret { font-size:10px; display:inline-block; transition:transform .15s; }
+  .top-row.open .caret { transform:rotate(90deg); }
+  .detail td { padding:0; background:rgba(88,166,255,.04); }
+  .detail:hover td { background:rgba(88,166,255,.04); }
+  .d-wrap { display:flex; flex-direction:column; padding:4px 12px 10px 44px; }
+  .d-item { display:flex; align-items:center; gap:14px; padding:7px 4px;
+    border-bottom:1px solid var(--border); text-decoration:none; color:var(--text); }
+  .d-item:last-child { border-bottom:none; }
+  .d-item:hover { color:var(--accent); }
+  .d-who { flex:1 1 200px; min-width:160px; font-weight:600; font-size:14px; }
+  .d-who .muted { font-weight:400; }
+  .d-val { flex:0 0 110px; }
+  .d-chg { flex:0 0 64px; }
+  .d-date { flex:0 0 96px; font-size:13px; }
   footer { color:var(--muted); font-size:12px; margin-top:40px; text-align:center; }
   footer a { color:var(--muted); }
 </style>
@@ -58,7 +75,7 @@
 <div class="wrap">
   <header>
     <h1><span class="dot">●</span> Insider Monitor <span class="muted">— Oslo Børs</span></h1>
-    <div class="updated">Oppdatert 29.06.2026 kl. 20:18 UTC · auto-refresh 60s</div>
+    <div class="updated">Oppdatert 29.06.2026 kl. 20:34 UTC · auto-refresh 60s</div>
   </header>
 
   <h2>🏆 Topp signaler (siste 30 dager)</h2>
@@ -68,10 +85,10 @@
       <thead><tr>
         <th></th><th>Selskap</th><th>Sterkeste insider</th><th>Rolle</th>
         <th class="num">Verdi</th><th class="num">Endring</th>
-        <th class="num">Score</th><th class="num">Kjøp</th>
+        <th class="num">Score</th><th class="num">Kjøp ⓘ</th>
       </tr></thead>
       <tbody>
-        <tr>
+        <tr class="top-row clickable" onclick="tgl(this,'d1')">
           <td class="rank">1</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12889594" target="_blank" rel="noopener">Orkla ASA</a></td>
           <td>—</td>
@@ -79,9 +96,47 @@
           <td class="num">972k</td>
           <td class="num">+9%</td>
           <td class="num"><span class="score s-hot">10.0</span></td>
-          <td class="num muted">5</td>
+          <td class="num"><span class="expand">5 <span class="caret">▸</span></span></td>
         </tr>
-        <tr>
+        <tr class="detail" id="d1" hidden>
+          <td colspan="8"><div class="d-wrap">
+                <a class="d-item" href="https://live.euronext.com/en/node/12889594" target="_blank" rel="noopener">
+                  <span class="d-who">CFO</span>
+                  <span class="d-val num">972k NOK</span>
+                  <span class="d-chg num">+9%</span>
+                  <span class="d-date muted">02 Jun 2026 15:50 CES </span>
+                  <span class="score s-mid">5.6</span>
+                </a>
+                <a class="d-item" href="https://live.euronext.com/en/node/12889596" target="_blank" rel="noopener">
+                  <span class="d-who">CEO</span>
+                  <span class="d-val num">1.3M NOK</span>
+                  <span class="d-chg num">+4%</span>
+                  <span class="d-date muted">02 Jun 2026 16:00 CES </span>
+                  <span class="score s-mid">5.5</span>
+                </a>
+                <a class="d-item" href="https://live.euronext.com/en/node/12889591" target="_blank" rel="noopener">
+                  <span class="d-who">Board</span>
+                  <span class="d-val num">1.1M NOK</span>
+                  <span class="d-chg num">+29%</span>
+                  <span class="d-date muted">02 Jun 2026 15:40 CES </span>
+                  <span class="score s-mid">5.3</span>
+                </a>
+                <a class="d-item" href="https://live.euronext.com/en/node/12889145" target="_blank" rel="noopener">
+                  <span class="d-who">Other</span>
+                  <span class="d-val num">98k NOK</span>
+                  <span class="d-chg num">+9%</span>
+                  <span class="d-date muted">01 Jun 2026 10:45 CES </span>
+                  <span class="score s-weak">3.2</span>
+                </a>
+                <a class="d-item" href="https://live.euronext.com/en/node/12889510" target="_blank" rel="noopener">
+                  <span class="d-who">Other</span>
+                  <span class="d-val num">127k NOK</span>
+                  <span class="d-chg num">+1%</span>
+                  <span class="d-date muted">02 Jun 2026 12:20 CES </span>
+                  <span class="score s-weak">2.8</span>
+                </a></div></td>
+        </tr>
+        <tr class="top-row">
           <td class="rank">2</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12890367" target="_blank" rel="noopener">Protector Forsikring ASA</a></td>
           <td>—</td>
@@ -89,9 +144,9 @@
           <td class="num">77.7M</td>
           <td class="num">+1%</td>
           <td class="num"><span class="score s-strong">6.8</span></td>
-          <td class="num muted">1</td>
+          <td class="num"><span class="muted">1</span></td>
         </tr>
-        <tr>
+        <tr class="top-row">
           <td class="rank">3</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12889232" target="_blank" rel="noopener">Xplora Technologies AS</a></td>
           <td>Cosimo AS.
@@ -100,9 +155,9 @@ Knut Stålen</td>
           <td class="num">4.5M</td>
           <td class="num">—</td>
           <td class="num"><span class="score s-strong">6.5</span></td>
-          <td class="num muted">1</td>
+          <td class="num"><span class="muted">1</span></td>
         </tr>
-        <tr>
+        <tr class="top-row">
           <td class="rank">4</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12890887" target="_blank" rel="noopener">Ace Digital AS</a></td>
           <td>Digital AS
@@ -111,9 +166,9 @@ Alexander Hagen</td>
           <td class="num">129k</td>
           <td class="num">+59%</td>
           <td class="num"><span class="score s-mid">5.9</span></td>
-          <td class="num muted">1</td>
+          <td class="num"><span class="muted">1</span></td>
         </tr>
-        <tr>
+        <tr class="top-row">
           <td class="rank">5</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12889129" target="_blank" rel="noopener">ABG</a></td>
           <td>—</td>
@@ -121,9 +176,9 @@ Alexander Hagen</td>
           <td class="num">2.2M</td>
           <td class="num">+9%</td>
           <td class="num"><span class="score s-mid">5.9</span></td>
-          <td class="num muted">1</td>
+          <td class="num"><span class="muted">1</span></td>
         </tr>
-        <tr>
+        <tr class="top-row">
           <td class="rank">6</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12893228" target="_blank" rel="noopener">5th Planet Games A/S</a></td>
           <td>Mark Stanger</td>
@@ -131,9 +186,9 @@ Alexander Hagen</td>
           <td class="num">217k</td>
           <td class="num">+32%</td>
           <td class="num"><span class="score s-mid">5.9</span></td>
-          <td class="num muted">1</td>
+          <td class="num"><span class="muted">1</span></td>
         </tr>
-        <tr>
+        <tr class="top-row">
           <td class="rank">7</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12890776" target="_blank" rel="noopener">Arribatec Group ASA</a></td>
           <td>Ole Jakob Kjølvik</td>
@@ -141,9 +196,9 @@ Alexander Hagen</td>
           <td class="num">141k</td>
           <td class="num">+27%</td>
           <td class="num"><span class="score s-mid">5.7</span></td>
-          <td class="num muted">1</td>
+          <td class="num"><span class="muted">1</span></td>
         </tr>
-        <tr>
+        <tr class="top-row">
           <td class="rank">8</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12893670" target="_blank" rel="noopener">Sentia ASA</a></td>
           <td>—</td>
@@ -151,9 +206,9 @@ Alexander Hagen</td>
           <td class="num">292k</td>
           <td class="num">—</td>
           <td class="num"><span class="score s-mid">5.0</span></td>
-          <td class="num muted">1</td>
+          <td class="num"><span class="muted">1</span></td>
         </tr>
-        <tr>
+        <tr class="top-row">
           <td class="rank">9</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12889138" target="_blank" rel="noopener">Nordic Halibut AS</a></td>
           <td>Øyvind Gjærevoll Schanke</td>
@@ -161,9 +216,9 @@ Alexander Hagen</td>
           <td class="num">61k</td>
           <td class="num">—</td>
           <td class="num"><span class="score s-weak">4.9</span></td>
-          <td class="num muted">1</td>
+          <td class="num"><span class="muted">1</span></td>
         </tr>
-        <tr>
+        <tr class="top-row">
           <td class="rank">10</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12893315" target="_blank" rel="noopener">Selvaag Bolig ASA</a></td>
           <td>Sverre Molvik</td>
@@ -171,9 +226,9 @@ Alexander Hagen</td>
           <td class="num">25k</td>
           <td class="num">+7%</td>
           <td class="num"><span class="score s-weak">4.8</span></td>
-          <td class="num muted">1</td>
+          <td class="num"><span class="muted">1</span></td>
         </tr>
-        <tr>
+        <tr class="top-row">
           <td class="rank">11</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12892435" target="_blank" rel="noopener">TRMED</a></td>
           <td>—</td>
@@ -181,9 +236,9 @@ Alexander Hagen</td>
           <td class="num">115k</td>
           <td class="num">—</td>
           <td class="num"><span class="score s-weak">4.7</span></td>
-          <td class="num muted">1</td>
+          <td class="num"><span class="muted">1</span></td>
         </tr>
-        <tr>
+        <tr class="top-row">
           <td class="rank">12</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12889210" target="_blank" rel="noopener">DNB Bank ASA</a></td>
           <td>—</td>
@@ -191,9 +246,9 @@ Alexander Hagen</td>
           <td class="num">863k</td>
           <td class="num">—</td>
           <td class="num"><span class="score s-weak">4.7</span></td>
-          <td class="num muted">1</td>
+          <td class="num"><span class="muted">1</span></td>
         </tr>
-        <tr>
+        <tr class="top-row">
           <td class="rank">13</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12891818" target="_blank" rel="noopener">Kongsberg Maritime ASA</a></td>
           <td>—</td>
@@ -201,9 +256,9 @@ Alexander Hagen</td>
           <td class="num">337k</td>
           <td class="num">+185%</td>
           <td class="num"><span class="score s-weak">4.6</span></td>
-          <td class="num muted">1</td>
+          <td class="num"><span class="muted">1</span></td>
         </tr>
-        <tr>
+        <tr class="top-row">
           <td class="rank">14</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12892468" target="_blank" rel="noopener">TOMRA</a></td>
           <td>—</td>
@@ -211,9 +266,9 @@ Alexander Hagen</td>
           <td class="num">158k</td>
           <td class="num">+30%</td>
           <td class="num"><span class="score s-weak">4.5</span></td>
-          <td class="num muted">1</td>
+          <td class="num"><span class="muted">1</span></td>
         </tr>
-        <tr>
+        <tr class="top-row">
           <td class="rank">15</td>
           <td class="company"><a href="https://live.euronext.com/en/node/12890306" target="_blank" rel="noopener">STOREBRAND ASA</a></td>
           <td>—</td>
@@ -221,7 +276,7 @@ Alexander Hagen</td>
           <td class="num">100k</td>
           <td class="num">+17%</td>
           <td class="num"><span class="score s-weak">4.4</span></td>
-          <td class="num muted">1</td>
+          <td class="num"><span class="muted">1</span></td>
         </tr></tbody>
     </table>
   </div>
@@ -579,5 +634,13 @@ Instabank ASA <span class="muted">(Other)</span></td>
     Score er en intern modell — ikke investeringsråd.
   </footer>
 </div>
+<script>
+  function tgl(row, id) {
+    var e = document.getElementById(id);
+    if (!e) return;
+    e.hidden = !e.hidden;
+    row.classList.toggle('open', !e.hidden);
+  }
+</script>
 </body>
 </html>
